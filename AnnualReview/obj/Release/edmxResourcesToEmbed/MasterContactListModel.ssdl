@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MasterContactListModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Department">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DepartmentCode" Type="varchar" MaxLength="20" />
+    <Property Name="DepartmentName" Type="nvarchar" MaxLength="150" />
+    <Property Name="DivisionID" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="EmployeePerformanceReview">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmployeeID" Type="varchar" MaxLength="50" />
+    <Property Name="ImageID" Type="int" />
+    <Property Name="FullName" Type="nvarchar" MaxLength="150" />
+    <Property Name="BirthDay" Type="date" />
+    <Property Name="DepartmentID" Type="varchar" MaxLength="100" />
+    <Property Name="Position" Type="varchar" MaxLength="300" />
+    <Property Name="DivisionID" Type="varchar" MaxLength="20" />
+    <Property Name="LevelName" Type="int" />
+    <Property Name="Password" Type="nvarchar" MaxLength="50" />
+    <Property Name="ADUserName" Type="varchar" MaxLength="50" />
+    <Property Name="ADStatus" Type="bit" />
+    <Property Name="LastLogin" Type="datetime" />
+  </EntityType>
+  <EntityType Name="ManagerPerformanceReview">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ManagerEID" Type="varchar" MaxLength="50" />
+    <Property Name="StaffEID" Type="varchar" MaxLength="50" />
+    <Property Name="isSubmited" Type="bit" />
+    <Property Name="isReviewed" Type="bit" />
+    <Property Name="isShown" Type="bit" />
+    <Property Name="CreatedTime" Type="datetime" />
+    <Property Name="UpdatedTime" Type="datetime" />
+    <Property Name="isSaved" Type="bit" />
+  </EntityType>
+  <EntityType Name="PerformanceReviewDetail">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmployeeID" Type="varchar" MaxLength="50" />
+    <Property Name="SelfEvaluation" Type="nvarchar(max)" />
+    <Property Name="StaffPerformanceSummary" Type="nvarchar(max)" />
+    <Property Name="ManagerAssessment" Type="nvarchar(max)" />
+    <Property Name="ManagerPerformanceSummary" Type="nvarchar(max)" />
+    <Property Name="Criteria1" Type="int" />
+    <Property Name="Criteria2" Type="int" />
+    <Property Name="Criteria3" Type="int" />
+    <Property Name="Criteria4" Type="int" />
+    <Property Name="Criteria5" Type="int" />
+    <Property Name="Criteria6" Type="int" />
+    <Property Name="Criteria7" Type="int" />
+    <Property Name="Criteria8" Type="int" />
+    <Property Name="Criteria9" Type="int" />
+    <Property Name="Criteria10" Type="int" />
+    <Property Name="Criteria11" Type="int" />
+    <Property Name="Criteria12" Type="int" />
+    <Property Name="Criteria13" Type="int" />
+    <Property Name="Criteria14" Type="int" />
+    <Property Name="Criteria15" Type="int" />
+    <Property Name="StaffGoals" Type="nvarchar(max)" />
+    <Property Name="StaffComments" Type="nvarchar(max)" />
+    <Property Name="CreatedTime" Type="datetime" />
+    <Property Name="UpdatedTime" Type="datetime" />
+    <Property Name="Signature" Type="nvarchar" MaxLength="50" />
+    <Property Name="ManagerSignature" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="PerformanceReviewEditLog">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ReviewID" Type="int" Nullable="false" />
+    <Property Name="HostName" Type="nvarchar" MaxLength="50" />
+    <Property Name="UpdatedTime" Type="datetime" />
+    <Property Name="EditorID" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <Function Name="spAnnualPR_GetImageByEID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="EmployeeID" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="spAnnualPR_GetImageByEID_Test" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="EmployeeID" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="spAnnualPR_getInfoLogByEID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="EmployeeID" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="spAnnualPR_ListManagers_Test" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="EmployeeID" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="spAnnualPR_SearchImageByEID_Test" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="EmployeeID" Type="varchar" Mode="In" />
+  </Function>
+  <EntityContainer Name="MasterContactListModelStoreContainer">
+    <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EmployeePerformanceReview" EntityType="Self.EmployeePerformanceReview" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ManagerPerformanceReview" EntityType="Self.ManagerPerformanceReview" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PerformanceReviewDetail" EntityType="Self.PerformanceReviewDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PerformanceReviewEditLog" EntityType="Self.PerformanceReviewEditLog" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MasterContactListModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Department">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DepartmentCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="DepartmentName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="DivisionID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="EmployeePerformanceReview">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmployeeID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ImageID" Type="Int32" />
+    <Property Name="FullName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="BirthDay" Type="DateTime" Precision="0" />
+    <Property Name="DepartmentID" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Position" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="DivisionID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="LevelName" Type="Int32" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ADUserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ADStatus" Type="Boolean" />
+    <Property Name="LastLogin" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="ManagerPerformanceReview">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ManagerEID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="StaffEID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="isSubmited" Type="Boolean" />
+    <Property Name="isReviewed" Type="Boolean" />
+    <Property Name="isShown" Type="Boolean" />
+    <Property Name="CreatedTime" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedTime" Type="DateTime" Precision="3" />
+    <Property Name="isSaved" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="PerformanceReviewDetail">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmployeeID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="SelfEvaluation" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="StaffPerformanceSummary" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ManagerAssessment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ManagerPerformanceSummary" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Criteria1" Type="Int32" />
+    <Property Name="Criteria2" Type="Int32" />
+    <Property Name="Criteria3" Type="Int32" />
+    <Property Name="Criteria4" Type="Int32" />
+    <Property Name="Criteria5" Type="Int32" />
+    <Property Name="Criteria6" Type="Int32" />
+    <Property Name="Criteria7" Type="Int32" />
+    <Property Name="Criteria8" Type="Int32" />
+    <Property Name="Criteria9" Type="Int32" />
+    <Property Name="Criteria10" Type="Int32" />
+    <Property Name="Criteria11" Type="Int32" />
+    <Property Name="Criteria12" Type="Int32" />
+    <Property Name="Criteria13" Type="Int32" />
+    <Property Name="Criteria14" Type="Int32" />
+    <Property Name="Criteria15" Type="Int32" />
+    <Property Name="StaffGoals" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="StaffComments" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedTime" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedTime" Type="DateTime" Precision="3" />
+    <Property Name="Signature" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ManagerSignature" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="PerformanceReviewEditLog">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ReviewID" Type="Int32" Nullable="false" />
+    <Property Name="HostName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="UpdatedTime" Type="DateTime" Precision="3" />
+    <Property Name="EditorID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityContainer Name="MasterContactListEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Departments" EntityType="Self.Department" />
+    <EntitySet Name="EmployeePerformanceReviews" EntityType="Self.EmployeePerformanceReview" />
+    <EntitySet Name="ManagerPerformanceReviews" EntityType="Self.ManagerPerformanceReview" />
+    <EntitySet Name="PerformanceReviewDetails" EntityType="Self.PerformanceReviewDetail" />
+    <EntitySet Name="PerformanceReviewEditLogs" EntityType="Self.PerformanceReviewEditLog" />
+    <FunctionImport Name="spAnnualPR_GetImageByEID" ReturnType="Collection(MasterContactListModel.spAnnualPR_GetImageByEID_Result)">
+      <Parameter Name="EmployeeID" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="spAnnualPR_GetImageByEID_Test" ReturnType="Collection(MasterContactListModel.spAnnualPR_GetImageByEID_Test_Result)">
+      <Parameter Name="EmployeeID" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="spAnnualPR_getInfoLogByEID" ReturnType="Collection(MasterContactListModel.spAnnualPR_getInfoLogByEID_Result)">
+      <Parameter Name="EmployeeID" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="spAnnualPR_ListManagers_Test" ReturnType="Collection(MasterContactListModel.spAnnualPR_ListManagers_Test_Result)">
+      <Parameter Name="EmployeeID" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="spAnnualPR_SearchImageByEID_Test" ReturnType="Collection(MasterContactListModel.spAnnualPR_SearchImageByEID_Test_Result)">
+      <Parameter Name="EmployeeID" Mode="In" Type="String" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="spAnnualPR_GetImageByEID_Result">
+    <Property Type="Binary" Name="EmployeeImage" Nullable="true" MaxLength="Max" />
+    <Property Type="String" Name="EmployeeID" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="LevelName" Nullable="true" />
+    <Property Type="String" Name="DepartmentID" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="Position" Nullable="true" MaxLength="300" />
+    <Property Type="String" Name="FullName" Nullable="true" MaxLength="150" />
+  </ComplexType>
+  <ComplexType Name="spAnnualPR_GetImageByEID_Test_Result">
+    <Property Type="Int32" Name="Criteria1" Nullable="true" />
+    <Property Type="Int32" Name="Criteria2" Nullable="true" />
+    <Property Type="Int32" Name="Criteria3" Nullable="true" />
+    <Property Type="Int32" Name="Criteria4" Nullable="true" />
+    <Property Type="Int32" Name="Criteria5" Nullable="true" />
+    <Property Type="Int32" Name="Criteria6" Nullable="true" />
+    <Property Type="Int32" Name="Criteria7" Nullable="true" />
+    <Property Type="Int32" Name="Criteria8" Nullable="true" />
+    <Property Type="Int32" Name="Criteria9" Nullable="true" />
+    <Property Type="Int32" Name="Criteria10" Nullable="true" />
+    <Property Type="Int32" Name="Criteria11" Nullable="true" />
+    <Property Type="Int32" Name="Criteria12" Nullable="true" />
+    <Property Type="Int32" Name="Criteria13" Nullable="true" />
+    <Property Type="Int32" Name="Criteria14" Nullable="true" />
+    <Property Type="Int32" Name="Criteria15" Nullable="true" />
+    <Property Type="String" Name="SelfEvaluation" Nullable="true" />
+    <Property Type="String" Name="StaffPerformanceSummary" Nullable="true" />
+    <Property Type="String" Name="StaffComments" Nullable="true" />
+    <Property Type="String" Name="StaffGoals" Nullable="true" />
+    <Property Type="String" Name="ManagerAssessment" Nullable="true" />
+    <Property Type="String" Name="ManagerPerformanceSummary" Nullable="true" />
+    <Property Type="String" Name="ManagerSignature" Nullable="true" MaxLength="50" />
+    <Property Type="Boolean" Name="isReviewed" Nullable="true" />
+    <Property Type="Int32" Name="ImageID" Nullable="true" />
+    <Property Type="Binary" Name="EmployeeImage" Nullable="true" MaxLength="Max" />
+    <Property Type="String" Name="EmployeeID" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="LevelName" Nullable="true" />
+    <Property Type="String" Name="Position" Nullable="true" MaxLength="300" />
+    <Property Type="String" Name="FullName" Nullable="true" MaxLength="150" />
+    <Property Type="DateTime" Name="signDateM" Nullable="true" Precision="23" />
+    <Property Type="String" Name="DepartmentName" Nullable="true" MaxLength="150" />
+    <Property Type="String" Name="Img" Nullable="false" MaxLength="1" />
+  </ComplexType>
+  <ComplexType Name="spAnnualPR_getInfoLogByEID_Result">
+    <Property Type="String" Name="FullName" Nullable="true" MaxLength="150" />
+    <Property Type="DateTime" Name="UpdatedTime" Nullable="true" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="spAnnualPR_ListManagers_Test_Result">
+    <Property Type="String" Name="EmployeeID" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="FullName" Nullable="true" MaxLength="150" />
+    <Property Type="String" Name="Position" Nullable="true" MaxLength="300" />
+  </ComplexType>
+  <ComplexType Name="spAnnualPR_SearchImageByEID_Test_Result">
+    <Property Type="String" Name="StaffEID" Nullable="true" MaxLength="50" />
+    <Property Type="Boolean" Name="isShown" Nullable="true" />
+    <Property Type="String" Name="Position" Nullable="true" MaxLength="300" />
+    <Property Type="String" Name="FullName" Nullable="true" MaxLength="150" />
+    <Property Type="String" Name="Department" Nullable="true" MaxLength="150" />
+  </ComplexType>
+</Schema>

@@ -1,0 +1,343 @@
+﻿@model EmployeePerformanceReview
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section HeaderContent
+{
+    <h2> Team Member </h2>
+}
+
+
+<!DOCTYPE html>
+
+<div class="container" id="staffContain">
+    <div class="card o-hidden border-0 shadow-lg my-5">
+        <div class="card-body p-0">
+            <!-- Nested Row within Card Body -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="p-5">
+                        <div class="text-center mb-3">
+                            <img style="height:150px; width:150px" src="~/Assets/Images/logoFull.png" />
+                        </div>
+
+                        <h3 style="text-align: center" class="font-weight-bold">Đánh giá kết quả công việc hàng năm </br> <span class="font-italic text-secondary">Annual Performance Review</span></h3>
+                        <h4 class="font-weight-bold mt-5">Team Member (Level 1 & 2):/ <span class="font-italic text-secondary">Nhân viên (Cấp bậc 1 & 2) </span></h4>
+
+                        <div class="col-12 card card-inverse pt-2 pb-5" style="background-color: #dae6f3; border-color: #333;">
+                            <div class="card-block">
+                                <div class="row">
+                                    <div class="col-md-4 col-sm-4 text-center">
+                                        <input type="hidden" id="employeeNo" value="@Model.EmployeeID" />
+
+                                        <input type="hidden" id="departId" value="@Model.DepartmentID" />
+                                        <img class="btn-md" alt="" style="width: 200px; height:200px; margin-top:32px" id="imgEmpLoggin">
+                                        <h3><strong id="empId">@Model.EmployeeID</strong></h3>
+                                        <p class="font-weight-bold">Bộ phận:/<span class="font-italic text-secondary">Department</span><br /><span class="font-weight-normal" id="departName"></span></p>
+                                    </div>
+                                    <div class="col-md-8 col-sm-8">
+                                        <div class="row">
+                                            <label class="font-weight-bold">Tên Nhân viên:/<span class="font-italic text-secondary">Team member name</span></label>
+                                            <label class="form-control">@Model.FullName</label>
+                                        </div>
+                                        <div class="row">
+                                            <label class="font-weight-bold">Vị trí:/<span class="font-italic text-secondary">Position</span></label>
+                                            <label class="form-control">@Model.Position</label>
+                                        </div>
+                                        <div class="row">
+                                            <label class="font-weight-bold">Mã số Quản lý:/<span class="font-italic text-secondary">Manager's ID</span></label>
+                                            <div class="input-group mb-3">
+                                                <input type="number" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="5" class="form-control" id="manaId" onchange="displayManagerInfo(false) " onkeyup="displayManagerInfo(false)" onpaste="displayManagerInfo(false)" oncut="displayManagerInfo(false)" />
+                                                <div class="input-group-append">
+                                                    <button class="btn btn-primary" id="btnCheck" onclick="changeManager()">Check</button>
+                                                </div>
+                                            </div>
+                                            <label id="checkManagerName" class="text-danger font-weight-bold"></label>
+                                        </div>
+                                        <div class="row">
+                                            <label class="font-weight-bold" id="manaNameLb">Tên Quản lý:/<span class="font-italic text-secondary">Manager name</span></label>
+                                            <label class="form-control" id="manaName"></label>
+                                        </div>
+                                        <div class="row">
+                                            <label class="font-weight-bold mt-1" id="manaPosLb">Vị trí:/<span class="font-italic text-secondary">Position</span></label>
+                                            <label class="form-control" id="manaPos"></label>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-md-12 col-sm-12 text-center" id="contManaRev">
+
+                                        <button class="btn btn-primary btn-block btn-md mt-3" data-toggle="modal" data-target="#managerModal"  onclick="openReviewed()" style="width: 70%; margin-left: 15%" id="btnManaRev">
+                                            <span class="fa fa-eye" >&nbsp;&nbsp;Đánh giá của quản lý:/ &nbsp;</span>
+                                            <span class="color-text font-weight-bold">Manager assessment&nbsp;&nbsp;</span><span class="badge badge-light font-weight-bold" id="manaRev"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="staffComtArea">
+                            <h5 class="font-weight-bold mt-5">
+                                Ý kiến của Nhân viên:/ <span class="font-italic text-secondary">Team member comments</span>
+                            </h5>
+                            <p>
+
+                                Tôi đã xem xét bản Đánh giá kết quả công việc hàng năm của mình cùng với người quản lý và tôi hoàn toàn
+                                hiểu rằng tôi có thể thêm vào bất kỳ nhận xét bổ sung nào bằng văn bản, những nhận xét này sẽ trở thành
+                                một phần của hồ sơ đánh giá kết quả công việc của tôi.<br />
+                                <span class="font-italic text-secondary">
+                                    I have reviewed my Annual Performance Review with my manager, and I fully understand that I can add on
+                                    any additional written comments, which will become part of my performance review record.<br />
+                                </span>
+                            </p>
+                            <textarea id="staffComment"></textarea>
+                            <span id="checkStaffComment" class="text-danger font-weight-bold"></span>
+                        </div>
+
+                        <div class="mt-5" style="background: #dae6f3">
+                            <div style="float: right; width: 40%;">
+                                <p class="text-center font-weight-bold">Chữ ký Nhân viên:/<span class="font-italic text-secondary">Team member’s signature</span></p>
+                                <input type="search" class="sig1 text-center name-signature" id="empSign" name="Employee's Signature" style="font-family: 'Binetta Signature', cursive; font-size: 3em; width: 100%;  height: 120px" />
+                                <span id="checkEmpSign" class="text-danger font-weight-bold"></span>
+                                <p class="text-center font-weight-bold">Ngày:/<span class="font-italic text-secondary"> Date &nbsp;&nbsp;&nbsp;&nbsp;</span><label id="signDate"></label></p>
+                                <button onclick="saveStaffReview(false)" class="btn btn-success btn-user btn-block mb-5" style="font-size: 15px" id="btnSave">Save</button>
+                            </div>
+                        </div>
+
+                        <button onclick="saveStaffReview(true)" class="btn btn-primary btn-user btn-block mt-5" id="btnSubmit">Submit</button>
+                    </div>
+
+                    @*<hr>*@
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade modal-xl" id="managerModal" tabindex="-1" role="dialog" aria-labelledby="managerModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="managerModalLabel">Đánh giá của quản lý</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="manaAreaComt" style="pointer-events: none">
+                    <div id="managerArea">
+                        <h5 class="font-weight-bold">
+                            Đánh giá của Quản lý:/ <span class="font-italic text-secondary">Manager assessment</span>
+                        </h5>
+                        <p>
+                            <span class="font-weight-normal pt-5">
+                                Vui lòng nêu nhận xét, đánh giá tối đa 200 chữ vào bên dưới, ghi lại kết quả thực hiện công việc của nhân
+                                viên trong năm vừa qua. Các tiêu chí đánh giá bao gồm: Kinh nghiệm làm việc, sự trưởng thành và phát
+                                triển của nhân viên, sự đáng tin cậy, khả năng thích ứng, làm việc đội nhóm và tính chuyên nghiệp của nhân
+                                viên đối với khách hàng và những nhân viên khác. Có thể nêu ra ví dụ cụ thể hỗ trợ cho đánh giá của bạn
+                                trong việc ghi nhận thành quả hoặc đóng góp cho sự phát triển của nhân viên.<br />
+
+                            </span>
+                            <span class="font-italic text-secondary">
+                                Summarise below, in no more than 200 words, how well you feel the team member has performed
+                                throughout the year. Provide specific experiences, growth, and development, and how if the team member is
+                                dependable, reliable, adaptable, a team player and professionalism toward guests and other team members.
+                                Give specific examples to support your comments in respect of achievements or areas of improvement.
+                            </span>
+                        </p>
+                        <textarea id="managerComment"></textarea>
+                        <span id="checkManagerComment" class="text-danger font-weight-bold"></span>
+                    </div>
+
+                    <div id="managerPerArea" class="mt-5">
+                        <h5 class="font-weight-bold">
+                            Đánh giá kết quả thực hiện công việc:/ <span class="font-italic text-secondary">Performance summary</span>
+                        </h5>
+                        <textarea id="managerPerComment"></textarea>
+                        <span id="checkManagerPerComment" class="text-danger font-weight-bold"></span>
+                    </div>
+
+                    <!--card -->
+                    <div class="card card-inverse col-12 mt-5 mb-5" style="background-color: #dae6f3; border-color: #333;" id="StaffContainer">
+                        <div class="card-block">
+                            <div class="row border-bottom border-dark">
+                                <div class="col-md-6 col-sm-2 text-center border-right border-dark text-center">
+                                    <label class="font-weight-bold">Tiêu chí đánh giá/ <span class="font-italic text-secondary">Competencies</span></label>
+                                </div>
+                                <div class="col-md-2 col-sm-2 border-right border-dark text-center">
+                                    <label class="font-weight-bold">Không Hoàn thành công việc/ <span class="font-italic text-secondary">Performs Below Expectations</span></label>
+                                </div>
+                                <div class="col-md-2 col-sm-2 border-right border-dark text-center">
+                                    <label class="font-weight-bold">Hoàn thành công việc/ <span class="font-italic text-secondary">Performs At Expectations</span></label>
+                                </div>
+                                <div class="col-md-2 col-sm-2 text-center">
+                                    <label class="font-weight-bold">Hoàn thành tốt công việc/ <span class="font-italic text-secondary">Performs Above Expectations</span></label>
+                                </div>
+                            </div>
+
+
+                            <span class="font-weight-bold">Am hiểu công việc/ <span class="font-italic text-secondary"></span>Job Knowledge</span>
+                            <div class="row border-top border-bottom  border-dark  justify-content-center">
+                                <div class="col-md-6 col-sm-2 text-left border-right border-dark">
+                                    <label>
+                                        Có kiến thức và hiểu biết về các nhiệm vụ được giao, trách nhiệm,
+                                        chính sách, thủ tục và các yêu cầu tuân thủ để thực hiện công việc.
+                                        <br />
+                                        <span class="font-italic text-secondary">
+                                            Possesses the knowledge and understanding of assigned duties,
+                                            responsibilities, policies, procedures, and compliance
+                                            requirements to perform the job.
+                                        </span>
+                                    </label>
+                                </div>
+                                <div class="col-md-2 col-sm-2 text-center border-right border-dark form-check-inline p-0 m-0">
+                                    <input class="form-check-input" type="radio" style="margin-left: 47%" name="rdJobKnowS" value="1" id="rdJobKnowS1">
+                                </div>
+                                <div class="col-md-2 col-sm-2 text-center border-right border-dark form-check-inline p-0 m-0">
+                                    <input class="form-check-input" type="radio" style="margin-left: 47%" name="rdJobKnowS" value="2" id="rdJobKnowS2">
+                                </div>
+                                <div class="col-md-2 col-sm-2 text-center form-check-inline p-0 m-0">
+                                    <input class="form-check-input" type="radio" style="margin-left: 47%" name="rdJobKnowS" value="3" id="rdJobKnowS3">
+                                </div>
+                            </div>
+
+                            <span class="font-weight-bold">Kỹ năng làm việc nhóm / <span class="font-italic text-secondary">Team Player</span></span>
+                            <div class="row border-top border-bottom border-dark">
+                                <div class="col-md-6 col-sm-2 text-left border-right border-dark">
+                                    <label>
+                                        Đối xử với mọi người bằng sự tôn trọng; có sự tin tưởng của các thành viên trong nhóm; luôn sẵn lòng giúp đỡ người khác.
+                                        <br />
+                                        <span class="font-italic text-secondary">
+                                            Treats everyone with respect; has the trust of your fellow team members; goes above and beyond to help others.
+                                        </span>
+                                    </label>
+                                </div>
+                                <div class="col-md-2 col-sm-2 text-center border-right border-dark form-check-inline p-0 m-0">
+                                    <input class="form-check-input" type="radio" style="margin-left: 47%" name="rdTeamPlayer" value="1" id="rdTeamPlayer1">
+                                </div>
+                                <div class="col-md-2 col-sm-2 text-center border-right border-dark form-check-inline p-0 m-0">
+                                    <input class="form-check-input" type="radio" style="margin-left: 47%" name="rdTeamPlayer" value="2" id="rdTeamPlayer2">
+                                </div>
+                                <div class="col-md-2 col-sm-2 text-center form-check-inline p-0 m-0">
+                                    <input class="form-check-input" type="radio" style="margin-left: 47%" name="rdTeamPlayer" value="3" id="rdTeamPlayer3">
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <span class="font-weight-bold">Tính chuyên nghiệp/ <span class="font-italic text-secondary">Professionalism</span></span>
+                        <div class="row border-top border-bottom border-dark">
+                            <div class="col-md-6 col-sm-2 text-left border-right border-dark">
+                                <label>
+                                    Giữ được bình tĩnh trong tình huống căng thẳng; duy trì sự nhã
+                                    nhặn trước áp lực; luôn giữ thái độ tích cực.
+                                    <br />
+                                    <span class="font-italic text-secondary">
+                                        Remains calm under stressful conditions; is gracious under
+                                        pressure; always maintains positive attitude.
+                                    </span>
+                                </label>
+                            </div>
+                            <div class="col-md-2 col-sm-2 text-center border-right border-dark form-check-inline p-0 m-0">
+                                <input class="form-check-input" type="radio" style="margin-left: 47%" name="rdProfessionS" value="1" id="rdProfessionS1">
+                            </div>
+                            <div class="col-md-2 col-sm-2 text-center border-right border-dark form-check-inline p-0 m-0">
+                                <input class="form-check-input" type="radio" style="margin-left: 47%" name="rdProfessionS" value="2" id="rdProfessionS2">
+                            </div>
+                            <div class="col-md-2 col-sm-2 text-center form-check-inline p-0 m-0">
+                                <input class="form-check-input" type="radio" style="margin-left: 47%" name="rdProfessionS" value="3" id="rdProfessionS3">
+                            </div>
+                        </div>
+
+
+                        <span class="font-weight-bold">Tính tự chủ / <span class="font-italic text-secondary">Dependability</span></span>
+                        <div class="row border-top border-bottom border-dark">
+                            <div class="col-md-6 col-sm-2 text-left border-right border-dark">
+                                <label>
+                                    Luôn thực hiện theo hướng dẫn; thường xuyên mang lại kết quả chất lượng cao; đáp ứng tất cả các thời hạn trong công việc
+                                    <br />
+                                    <span class="font-italic text-secondary">
+                                        Follows instructions; regularly delivers high quality results; meets all deadlines.
+                                    </span>
+                                </label>
+                            </div>
+                            <div class="col-md-2 col-sm-2 text-center border-right border-dark form-check-inline p-0 m-0">
+                                <input class="form-check-input" type="radio" style="margin-left: 47%" name="rdDependa" value="1" id="rdDependa1">
+                            </div>
+                            <div class="col-md-2 col-sm-2 text-center border-right border-dark form-check-inline p-0 m-0">
+                                <input class="form-check-input" type="radio" style="margin-left: 47%" name="rdDependa" value="2" id="rdDependa2">
+                            </div>
+                            <div class="col-md-2 col-sm-2 text-center form-check-inline p-0 m-0">
+                                <input class="form-check-input" type="radio" style="margin-left: 47%" name="rdDependa" value="3" id="rdDependa3">
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="mt-5" style="background: #dae6f3">
+                        <div style="float: right; width: 40%;">
+                            <p class="text-center font-weight-bold">Chữ ký Quản lý:/<span class="font-italic text-secondary">Manager’s signature</span></p>
+                            <input type="search" class="sig1 text-center name-signature" name="Manager’s signature" id="manaSign"  style="font-family: 'Binetta Signature', cursive; font-size: 3em; width: 100%;  height: 120px" />
+                            <p class="text-center font-weight-bold">Ngày:/<span class="font-italic text-secondary"> Date &nbsp;&nbsp;&nbsp;&nbsp;</span><label id="signDateM"></label></p>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal send request success-->
+<div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header ">
+                <h5 class="modal-title text-center" id="successModalLabel">Send Success</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Your request has been to manager
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="submitSuccessModal" tabindex="-1" role="dialog" aria-labelledby="submitSuccessModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="border: rgb(28, 200, 138) 3px solid;">
+            <div class="modal-header ">
+                <h5 class="modal-title text-center" id="submitSuccessModalLabel">Update Success</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Your information has been updated
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section scriptStaff
+{
+    <script src="~/Assets/Admin/js/staff.js"></script>
+}

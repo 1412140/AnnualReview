@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MasterContactListModelStoreContainer" CdmEntityContainer="MasterContactListEntities">
+    <EntitySetMapping Name="Departments">
+      <EntityTypeMapping TypeName="MasterContactListModel.Department">
+        <MappingFragment StoreEntitySet="Department">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="DepartmentCode" ColumnName="DepartmentCode" />
+          <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
+          <ScalarProperty Name="DivisionID" ColumnName="DivisionID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmployeePerformanceReviews">
+      <EntityTypeMapping TypeName="MasterContactListModel.EmployeePerformanceReview">
+        <MappingFragment StoreEntitySet="EmployeePerformanceReview">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="ImageID" ColumnName="ImageID" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="BirthDay" ColumnName="BirthDay" />
+          <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+          <ScalarProperty Name="Position" ColumnName="Position" />
+          <ScalarProperty Name="DivisionID" ColumnName="DivisionID" />
+          <ScalarProperty Name="LevelName" ColumnName="LevelName" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="ADUserName" ColumnName="ADUserName" />
+          <ScalarProperty Name="ADStatus" ColumnName="ADStatus" />
+          <ScalarProperty Name="LastLogin" ColumnName="LastLogin" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ManagerPerformanceReviews">
+      <EntityTypeMapping TypeName="MasterContactListModel.ManagerPerformanceReview">
+        <MappingFragment StoreEntitySet="ManagerPerformanceReview">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ManagerEID" ColumnName="ManagerEID" />
+          <ScalarProperty Name="StaffEID" ColumnName="StaffEID" />
+          <ScalarProperty Name="isSubmited" ColumnName="isSubmited" />
+          <ScalarProperty Name="isReviewed" ColumnName="isReviewed" />
+          <ScalarProperty Name="isShown" ColumnName="isShown" />
+          <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
+          <ScalarProperty Name="UpdatedTime" ColumnName="UpdatedTime" />
+          <ScalarProperty Name="isSaved" ColumnName="isSaved" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PerformanceReviewDetails">
+      <EntityTypeMapping TypeName="MasterContactListModel.PerformanceReviewDetail">
+        <MappingFragment StoreEntitySet="PerformanceReviewDetail">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="SelfEvaluation" ColumnName="SelfEvaluation" />
+          <ScalarProperty Name="StaffPerformanceSummary" ColumnName="StaffPerformanceSummary" />
+          <ScalarProperty Name="ManagerAssessment" ColumnName="ManagerAssessment" />
+          <ScalarProperty Name="ManagerPerformanceSummary" ColumnName="ManagerPerformanceSummary" />
+          <ScalarProperty Name="Criteria1" ColumnName="Criteria1" />
+          <ScalarProperty Name="Criteria2" ColumnName="Criteria2" />
+          <ScalarProperty Name="Criteria3" ColumnName="Criteria3" />
+          <ScalarProperty Name="Criteria4" ColumnName="Criteria4" />
+          <ScalarProperty Name="Criteria5" ColumnName="Criteria5" />
+          <ScalarProperty Name="Criteria6" ColumnName="Criteria6" />
+          <ScalarProperty Name="Criteria7" ColumnName="Criteria7" />
+          <ScalarProperty Name="Criteria8" ColumnName="Criteria8" />
+          <ScalarProperty Name="Criteria9" ColumnName="Criteria9" />
+          <ScalarProperty Name="Criteria10" ColumnName="Criteria10" />
+          <ScalarProperty Name="Criteria11" ColumnName="Criteria11" />
+          <ScalarProperty Name="Criteria12" ColumnName="Criteria12" />
+          <ScalarProperty Name="Criteria13" ColumnName="Criteria13" />
+          <ScalarProperty Name="Criteria14" ColumnName="Criteria14" />
+          <ScalarProperty Name="Criteria15" ColumnName="Criteria15" />
+          <ScalarProperty Name="StaffGoals" ColumnName="StaffGoals" />
+          <ScalarProperty Name="StaffComments" ColumnName="StaffComments" />
+          <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
+          <ScalarProperty Name="UpdatedTime" ColumnName="UpdatedTime" />
+          <ScalarProperty Name="Signature" ColumnName="Signature" />
+          <ScalarProperty Name="ManagerSignature" ColumnName="ManagerSignature" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PerformanceReviewEditLogs">
+      <EntityTypeMapping TypeName="MasterContactListModel.PerformanceReviewEditLog">
+        <MappingFragment StoreEntitySet="PerformanceReviewEditLog">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ReviewID" ColumnName="ReviewID" />
+          <ScalarProperty Name="HostName" ColumnName="HostName" />
+          <ScalarProperty Name="UpdatedTime" ColumnName="UpdatedTime" />
+          <ScalarProperty Name="EditorID" ColumnName="EditorID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="spAnnualPR_GetImageByEID" FunctionName="MasterContactListModel.Store.spAnnualPR_GetImageByEID">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MasterContactListModel.spAnnualPR_GetImageByEID_Result">
+          <ScalarProperty Name="EmployeeImage" ColumnName="EmployeeImage" />
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="LevelName" ColumnName="LevelName" />
+          <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+          <ScalarProperty Name="Position" ColumnName="Position" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="spAnnualPR_GetImageByEID_Test" FunctionName="MasterContactListModel.Store.spAnnualPR_GetImageByEID_Test">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MasterContactListModel.spAnnualPR_GetImageByEID_Test_Result">
+          <ScalarProperty Name="Criteria1" ColumnName="Criteria1" />
+          <ScalarProperty Name="Criteria2" ColumnName="Criteria2" />
+          <ScalarProperty Name="Criteria3" ColumnName="Criteria3" />
+          <ScalarProperty Name="Criteria4" ColumnName="Criteria4" />
+          <ScalarProperty Name="Criteria5" ColumnName="Criteria5" />
+          <ScalarProperty Name="Criteria6" ColumnName="Criteria6" />
+          <ScalarProperty Name="Criteria7" ColumnName="Criteria7" />
+          <ScalarProperty Name="Criteria8" ColumnName="Criteria8" />
+          <ScalarProperty Name="Criteria9" ColumnName="Criteria9" />
+          <ScalarProperty Name="Criteria10" ColumnName="Criteria10" />
+          <ScalarProperty Name="Criteria11" ColumnName="Criteria11" />
+          <ScalarProperty Name="Criteria12" ColumnName="Criteria12" />
+          <ScalarProperty Name="Criteria13" ColumnName="Criteria13" />
+          <ScalarProperty Name="Criteria14" ColumnName="Criteria14" />
+          <ScalarProperty Name="Criteria15" ColumnName="Criteria15" />
+          <ScalarProperty Name="SelfEvaluation" ColumnName="SelfEvaluation" />
+          <ScalarProperty Name="StaffPerformanceSummary" ColumnName="StaffPerformanceSummary" />
+          <ScalarProperty Name="StaffComments" ColumnName="StaffComments" />
+          <ScalarProperty Name="StaffGoals" ColumnName="StaffGoals" />
+          <ScalarProperty Name="ManagerAssessment" ColumnName="ManagerAssessment" />
+          <ScalarProperty Name="ManagerPerformanceSummary" ColumnName="ManagerPerformanceSummary" />
+          <ScalarProperty Name="ManagerSignature" ColumnName="ManagerSignature" />
+          <ScalarProperty Name="isReviewed" ColumnName="isReviewed" />
+          <ScalarProperty Name="ImageID" ColumnName="ImageID" />
+          <ScalarProperty Name="EmployeeImage" ColumnName="EmployeeImage" />
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="LevelName" ColumnName="LevelName" />
+          <ScalarProperty Name="Position" ColumnName="Position" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="signDateM" ColumnName="signDateM" />
+          <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
+          <ScalarProperty Name="Img" ColumnName="Img" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="spAnnualPR_getInfoLogByEID" FunctionName="MasterContactListModel.Store.spAnnualPR_getInfoLogByEID">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MasterContactListModel.spAnnualPR_getInfoLogByEID_Result">
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="UpdatedTime" ColumnName="UpdatedTime" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="spAnnualPR_ListManagers_Test" FunctionName="MasterContactListModel.Store.spAnnualPR_ListManagers_Test">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MasterContactListModel.spAnnualPR_ListManagers_Test_Result">
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="Position" ColumnName="Position" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="spAnnualPR_SearchImageByEID_Test" FunctionName="MasterContactListModel.Store.spAnnualPR_SearchImageByEID_Test">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MasterContactListModel.spAnnualPR_SearchImageByEID_Test_Result">
+          <ScalarProperty Name="StaffEID" ColumnName="StaffEID" />
+          <ScalarProperty Name="isShown" ColumnName="isShown" />
+          <ScalarProperty Name="Position" ColumnName="Position" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="Department" ColumnName="Department" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>
